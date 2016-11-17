@@ -28,7 +28,7 @@
       <div class="container">
         <div class="row">
             <div id="footer-signature" class="col-xs-12 col-md-6" itemtype="http://schema.org/WPFooter" itemscope="itemscope" role="contentinfo">
-
+              <?php echo get_theme_mod('signature'); ?>
             </div>
         </div>
       </div>
