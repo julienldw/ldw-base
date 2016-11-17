@@ -49,36 +49,46 @@ function ldw_menu($location,$type = 'list',$sep = ' - ', $class = ''){
 	switch($type){
 		case 'link':
 			$menus = get_nav_menu_locations();
-			$elems = wp_get_nav_menu_items($menus[$location]);
-			if($elems && count($elems)>0){
-				foreach($elems as $key=>$elem){
-					if($elem->object_id == $current_id) $class = 'class="current_page_item"'; else $class = '';
-					echo '<a '.$class.' href="'.$elem->url.'">'.$elem->title.'</a>';
-					if($key < count($elems) - 1) echo $sep;
-				}
+      if(isset($menus[$location])){
+  			$elems = wp_get_nav_menu_items($menus[$location]);
+  			if($elems && count($elems)>0){
+  				foreach($elems as $key=>$elem){
+  					if($elem->object_id == $current_id) $class = 'class="current_page_item"'; else $class = '';
+  					echo '<a '.$class.' href="'.$elem->url.'">'.$elem->title.'</a>';
+  					if($key < count($elems) - 1) echo $sep;
+  				}
+  			}
 			}
 		break;
 		case 'select':
 			$menus = get_nav_menu_locations();
-			$elems = wp_get_nav_menu_items($menus[$location]);
-			if($elems && count($elems)>0){
-				echo '<select onchange="window.location.replace(this.value)">';
-				foreach($elems as $key=>$elem){
-					if($elem->object_id == $current_id) $selected = 'selected="selected"'; else $selected = '';
-					echo '<option value="'.$elem->url.'" '.$selected.'>'.$elem->title.'</option>';
-				}
-				echo '</select>';
+      if(isset($menus[$location])){
+  			$elems = wp_get_nav_menu_items($menus[$location]);
+  			if($elems && count($elems)>0){
+  				echo '<select onchange="window.location.replace(this.value)">';
+  				foreach($elems as $key=>$elem){
+  					if($elem->object_id == $current_id) $selected = 'selected="selected"'; else $selected = '';
+  					echo '<option value="'.$elem->url.'" '.$selected.'>'.$elem->title.'</option>';
+  				}
+  				echo '</select>';
+  			}
 			}
 		break;
 		case 'list':
 		default:
       require_once(get_template_directory().'/framework/front/classes/ldw_nav_menu.php');
-			wp_nav_menu(array(
-        'theme_location' => $location ,
-        'container'	=>	false,
-        'menu_class'  =>  $class,
-        'walker'  =>  new LDW_Nav_Menu()
-      ));
+      $menus = get_nav_menu_locations();
+      if(isset($menus[$location])){
+        $elems = wp_get_nav_menu_items($menus[$location]);
+        if($elems && count($elems)>0){
+    			wp_nav_menu(array(
+            'theme_location' => $location ,
+            'container'	=>	false,
+            'menu_class'  =>  $class,
+            'walker'  =>  new LDW_Nav_Menu()
+          ));
+        }
+      }
 		break;
 	}
 }
