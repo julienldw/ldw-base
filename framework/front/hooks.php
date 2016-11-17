@@ -19,22 +19,26 @@ class Hooks{
   }
 
   static function nav_menu_link_attributes( $atts, $item, $args, $depth  ) {
-    if(is_object($args->walker)){
-      if($args->walker->has_children){
-        $atts['data-href'] = '#';
-        $atts['data-toggle'] = 'dropdown';
-        $atts['aria-haspopup'] = 'true';
-        $atts['aria-expanded'] = 'false';
-        if(!isset($atts['class'])) $atts['class'] = '';
-        $atts['class'] .= ' dropdown-toggle';
+    if(is_object($args)){
+      if(is_object($args->walker)){
+        if($args->walker->has_children){
+          $atts['data-href'] = '#';
+          $atts['data-toggle'] = 'dropdown';
+          $atts['aria-haspopup'] = 'true';
+          $atts['aria-expanded'] = 'false';
+          if(!isset($atts['class'])) $atts['class'] = '';
+          $atts['class'] .= ' dropdown-toggle';
+        }
       }
     }
     return $atts;
   }
   static function nav_menu_item_title( $title, $item, $args, $depth   ) {
-    if(is_object($args->walker)){
-      if($args->walker->has_children){
-        $title .= '<span class="caret"></span>';
+    if(is_object($args)){
+      if(is_object($args->walker)){
+        if($args->walker->has_children){
+          $title .= '<span class="caret"></span>';
+        }
       }
     }
     return $title;
