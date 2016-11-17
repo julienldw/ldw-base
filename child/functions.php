@@ -19,10 +19,6 @@ define('BT_SLIDER', false); // http://seiyria.com/bootstrap-slider/
 add_action( 'after_setup_theme','ldwbasechild_setup',11);
 function ldwbasechild_setup(){
 
-  // défini la clé identifiant pour accéder aux API google
-  //La clé ci-dessous est pour le développement. Créer un projet dédié pour la production https://console.developers.google.com/apis/
-  set_theme_mod('gmap_api', 'AIzaSyCfA_y54n7UkBQQb8lhy1cneHhRmI8HBME');
-
   // défini si le header est static ou fixed
   set_theme_mod('header_position','static');
 
@@ -39,17 +35,5 @@ function ldwbasechild_setup(){
     )
   ));
 
-  // Code HTML de la signature
-  set_theme_mod('signature','<p>&copy; 2016 - conçu avec <i class="fa fa-heart"></i> par <a href="http://lamourduweb.com">Lamour du Web</a></p>');
-
-  // ordre d'affichage des éléments dans la liste des articles du blog.
-  // Supprimer un élément pour ne pas l'afficher
-  set_theme_mod('posts_item_order', 'img,title,excerpt,meta');
-
-  // Contenu de l'élément "meta" (voir ci-dessus)
-  // variables utilisables : %date% %author% %categories% %tags% %comments%
-  // Voir ldw_entry_meta() dans framework/front/functions.php pour voir ce que ces variables affichent
-  // L'affichage de chacune de ces variables peut être modifié grâce à des filtres
-  set_theme_mod('post_meta','<span class="date">Publié le %date%</span><span class="cat">Dossier : %categories%</span>');
 
 }

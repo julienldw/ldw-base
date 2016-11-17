@@ -18,15 +18,46 @@ class LDWBaseAdmin{
 	function admin_init(){
 		global $ldwbase_notices;
 
+		$saved = false;
+
+		// page général
+		if(isset($_POST['ldwbase-general'])){
+      if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
+				set_theme_mod('gmap_api',$_POST['gmap_api']);
+				$saved = true;
+			}
+		}
+
+		// page header
 		if(isset($_POST['ldwbase-header'])){
       if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
-
 				set_theme_mod('logo',$_POST['logo_id']);
-				$ldwbase_notices = array(
-					'classes'	=>	'notice-success',
-					'html'	=>	"<p>Options enregistrées.</p>"
-				);
+				$saved = true;
 			}
+		}
+
+		// page blog
+		if(isset($_POST['ldwbase-blog'])){
+			if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
+				set_theme_mod('posts_item_order',$_POST['posts_item_order']);
+				set_theme_mod('post_meta',$_POST['post_meta']);
+				$saved = true;
+			}
+		}
+
+		// page footer
+		if(isset($_POST['ldwbase-footer'])){
+      if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
+				set_theme_mod('signature',$_POST['signature']);
+				$saved = true;
+			}
+		}
+
+		if($saved){
+			$ldwbase_notices = array(
+				'classes'	=>	'notice-success',
+				'html'	=>	"<p>Options enregistrées.</p>"
+			);
 		}
 	}
 
@@ -45,7 +76,7 @@ class LDWBaseAdmin{
       'LDW Base',
       'manage_options',
       'ldw-base',
-      array($this,'admin_page')
+      array($this,'general_page')
     );
 		add_submenu_page(
 			'ldw-base',
@@ -53,20 +84,64 @@ class LDWBaseAdmin{
 			'Général',
 			'manage_options',
 			'ldw-base',
-			array($this,'admin_page')
+			array($this,'general_page')
 		);
     add_submenu_page(
       'ldw-base',
-      'Entête',
-      'Entête',
+      'Header',
+      'Header',
       'manage_options',
       'ldw-base-header',
       array($this,'header_page')
     );
+		add_submenu_page(
+			'ldw-base',
+			'Blog',
+			'Blog',
+			'manage_options',
+			'ldw-base-blog',
+			array($this,'blog_page')
+		);
+		add_submenu_page(
+			'ldw-base',
+			'Footer',
+			'Footer',
+			'manage_options',
+			'ldw-base-footer',
+			array($this,'footer_page')
+		);
+		add_submenu_page(
+			'ldw-base',
+			'A propos',
+			'A propos',
+			'manage_options',
+			'ldw-base-about',
+			array($this,'about_page')
+		);
   }
 
-  function admin_page(){
+  function general_page(){
+
+		$gmap_api = get_theme_mod('gmap_api', DEFAULT_GOOGLEAPI_KEY);
+
     $page = 'home';
+    include('views/index.php');
+  }
+
+	function blog_page(){
+
+		$posts_item_order = get_theme_mod('posts_item_order', DEFAULT_POSTS_ITEM_ORDER);
+		$post_meta = get_theme_mod('post_meta', DEFAULT_POST_META);
+
+    $page = 'blog';
+    include('views/index.php');
+  }
+
+	function footer_page(){
+
+		$signature = get_theme_mod('signature', DEFAULT_SIGNATURE);
+
+    $page = 'footer';
     include('views/index.php');
   }
 
@@ -79,6 +154,11 @@ class LDWBaseAdmin{
 		}
 
     $page = 'header';
+    include('views/index.php');
+  }
+
+	function about_page(){
+    $page = 'about';
     include('views/index.php');
   }
 

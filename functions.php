@@ -1,4 +1,10 @@
 <?php
+
+define('DEFAULT_GOOGLEAPI_KEY', 'AIzaSyCfA_y54n7UkBQQb8lhy1cneHhRmI8HBME');
+define('DEFAULT_SIGNATURE','<p>&copy; 2016 - conçu avec <i class="fa fa-heart"></i> par <a href="http://lamourduweb.com">Lamour du Web</a></p>');
+define('DEFAULT_POSTS_ITEM_ORDER', 'img,title,meta,excerpt,more');
+define('DEFAULT_POST_META', 'Publié le %date% par %author% dans %categories%');
+
 class LDWBase{
 
 	public function __construct(){
@@ -75,12 +81,9 @@ class LDWBase{
 
 
 	public function setup(){
-			set_theme_mod('gmap_api','');
 			set_theme_mod('header_position','static');
 			set_theme_mod('social_networks', array());
-			set_theme_mod('posts_item_order', 'img,title,date,excerpt,more');
 			set_theme_mod('post_more', 'Lire la suite');
-			set_theme_mod('post_meta','Le %date% - par %author% - %categories%');
 
 
 			include_once( dirname(__FILE__) . '/framework/front/functions.php' );
