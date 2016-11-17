@@ -1,18 +1,13 @@
 <?php
 //affiche le titre du site
 function ldw_sitetitle(){
-  if ( function_exists( 'the_custom_logo' ) ) {
-    if(has_custom_logo()){
-      $custom_logo_id = get_theme_mod( 'custom_logo' );
-      $ret = wp_get_attachment_image( $custom_logo_id, 'full', false, array(
-        'class'    => 'custom-logo',
-        'itemprop' => 'logo',
-      ) );
-    }
-    else {
-      $ret = get_bloginfo('name');
-    }
-	}
+  $logo_id = get_theme_mod( 'logo' );
+  if(strlen($logo_id) > 0){
+    $ret = wp_get_attachment_image( $logo_id, 'full', false, array(
+      'class'    => 'custom-logo',
+      'itemprop' => 'logo',
+    ) );
+  }
   else{
       $ret = get_bloginfo('name');
   }

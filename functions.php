@@ -2,13 +2,20 @@
 class LDWBase{
 
 	public function __construct(){
+		add_action('init', array($this, 'init'));
 		add_action('admin_notices', array($this,'admin_notices') );
 		add_action( 'after_setup_theme', array($this,'setup') );
 		add_action( 'widgets_init', array($this,'widgets_init') );
 		add_action('wp_enqueue_scripts',array($this,'wp_enqueue_scripts') );
 	}
 
+	public function init(){
+		if(is_admin())
+			include_once( dirname(__FILE__) . '/framework/admin/index.php' );
+	}
+
 	public function wp_enqueue_scripts(){
+
 		wp_enqueue_script('bootstrap',get_template_directory_uri().'/framework/vendors/bootstrap/js/bootstrap.min.js',array('jquery'),'', true);
 
 		if(COLORBOX){
@@ -88,12 +95,6 @@ class LDWBase{
 
 			//laisse à WP la gestion du TITLE des pages
 			add_theme_support( 'title-tag' );
-
-			add_theme_support( 'custom-logo', apply_filters( 'ldwbase_custom_logo_args', array(
-				'height'      => 240,
-				'width'       => 240,
-				'flex-height' => true,
-			) ) );
 
 
 			add_theme_support( 'custom-header',	apply_filters( 'ldwbase_custom_header_args', array(

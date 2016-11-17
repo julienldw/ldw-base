@@ -1,0 +1,6 @@
+.manage_media .media_thumb img{
+	max-width:300px; height:auto;
+}
+.manage_media .nomedia_button.hasmedia{ display:none;}
+.manage_media .hasmedia_buttons{ display:none;}
+.manage_media .hasmedia_buttons.hasmedia{ display:block;}
