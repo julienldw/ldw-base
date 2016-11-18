@@ -14,6 +14,7 @@ define('AUTOSIZE', false); // http://www.jacklmoore.com/autosize/
 define('GMAP3', false); // http://gmap3.net/
 define('COLORBOX', false); // http://www.jacklmoore.com/colorbox/
 define('BT_SLIDER', false); // http://seiyria.com/bootstrap-slider/
+define('AJAX',true);
 
 
 add_action( 'after_setup_theme','ldwbasechild_setup',11);
