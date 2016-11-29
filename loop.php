@@ -74,3 +74,5 @@ $post_items_order = explode(',',$post_items_order);
 		</article><!-- #post-## -->
 
 <?php endwhile; // End the loop. Whew. ?>
+
+<div class="paginate"><?php echo ldw_paginate(); ?></div>
