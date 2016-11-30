@@ -50,4 +50,17 @@ jQuery(function($) {
 
   // active le glissement pour les ancres
   $('body').on('click','a[href^="#"]',setAncre);
+  regex = new RegExp("[\#]");
+	url = document.URL;
+	if(regex.test(url)) {
+        ancre = url.split("#");
+        concat = "#" + ancre[1];
+        scrolltop = $(concat).offset().top;
+        if($('#header').css('position') == 'fixed'){
+            scrolltop -= $('#header').height();
+        }
+        $('html, body').animate({
+			scrollTop:scrolltop
+		}, 'slow');
+	}  
 });
