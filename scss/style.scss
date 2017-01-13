@@ -40,6 +40,7 @@
 }
 
 $icon-font-path: "../ldw-base/framework/vendors/bootstrap/fonts/";
+$fa-font-path:  "../ldw-base/framework/vendors/font-awesome/fonts" !important;
 
 @import "../framework/vendors/bootstrap/scss/_bootstrap";
 @import "../framework/vendors/font-awesome/scss/font-awesome";
