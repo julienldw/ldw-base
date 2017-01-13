@@ -48,7 +48,7 @@ class LDWBaseAdmin{
 		// page footer
 		if(isset($_POST['ldwbase-footer'])){
       if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
-				set_theme_mod('signature',$_POST['signature']);
+				set_theme_mod('signature',stripslashes($_POST['signature']));
 				$saved = true;
 			}
 		}
