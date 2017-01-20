@@ -33,7 +33,7 @@ class LDWBase{
 			wp_enqueue_script('autosize',get_template_directory_uri().'/framework/vendors/autosize/js/autosize.min.js',array('jquery'),'', true);
 		}
 		if(GMAP3){
-			wp_enqueue_script('gmap', 'http://maps.google.com/maps/api/js?libraries=places&key='.get_theme_mod('gmap_api'));
+			wp_enqueue_script('gmap', '//maps.google.com/maps/api/js?libraries=places&key='.get_theme_mod('gmap_api'));
 			wp_enqueue_script('gmap3',get_template_directory_uri().'/framework/vendors/gmap3/js/gmap3.min.js',array('jquery','gmap'),'', true);
 		}
 		if(SELECT2){
