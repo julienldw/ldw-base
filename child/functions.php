@@ -36,5 +36,39 @@ function ldwbasechild_setup(){
     )
   ));
 
+  add_theme_support( 'starter-content', array(
+      'options' =>  [
+        'show_on_front' =>  'page',
+        'page_on_front' =>  '{{home}}',
+        'page_for_posts' =>  '{{news}}',
+      ],
+      'posts' => [
+          'home'  =>  ['post_title'  =>  'Accueil', 'post_name'  =>  'accueil'],
+          'about' =>  ['post_title'  =>  'Société', 'post_name'  =>  'societe'],
+          'contact' =>  ['post_title'  =>  'Contact', 'post_name'  =>  'contact'],
+          'news'  =>  ['post_title'  =>  'Actualités', 'post_name'  =>  'actualites'],
+          'legals'  =>  ['post_title'  =>  'Mentions légales', 'post_name'  =>  'mentions-legales'],
+      ],
+      'nav_menus' =>  [
+        'main'  =>  [
+          'name' => 'Header',
+          'items' =>  [
+            'page_about',
+            'page_news',
+            'page_contact',
+          ]
+        ],
+        'secondary'  =>  [
+          'name' => 'Footer',
+          'items' =>  [
+            'home_link',
+            'page_legals',
+            'page_contact',
+            ]
+        ],
+      ]
+    )
+  );
+
 
 }
