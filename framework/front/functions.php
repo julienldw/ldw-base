@@ -114,12 +114,15 @@ function ldw_widget_class($id){
 }
 
 //affiche les réseaux sociaux
-function ldw_social(){
+function ldw_social($label = ''){
   $socials = get_theme_mod('social_networks');
   $html = '';
   if(is_array($socials)){
       if(count($socials)>0){
-        $html = '<ul class="social_networks">';
+        if(strlen($label)>0){
+          $html .= '<span class="social_label">'.$label.'</span>';
+        }
+        $html .= '<ul class="social_networks">';
         foreach($socials as $social){
             $html .= '<li><a href="'.$social['url'].'">'.$social['icon'].'</a></li>';
         }

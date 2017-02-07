@@ -18,7 +18,7 @@
               <?php ldw_menu('secondary','list',null,'nav navbar-nav'); ?>
             </div>
             <div id="footer-social" class="col-xs-12 col-md-6">
-              <?php ldw_social(); ?>
+              <?php ldw_social('Retrouvez-nous sur les réseaux sociaux'); ?>
             </div>
         </div>
       </div>
