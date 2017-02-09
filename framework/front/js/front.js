@@ -26,6 +26,14 @@ function setAncre(){
 }
 
 jQuery(function($) {
+
+	if ($.fn.lazyload){
+		$('.lazy').lazyload({
+			threshold : 200,
+			effect : "fadeIn"
+		});
+	}
+
   if($('#header.header-fixed').length>0){
 		$('#main').css('margin-top',$('#header').outerHeight(true));
 

@@ -44,6 +44,9 @@ class LDWBase{
 			wp_enqueue_script('bt_slider',get_template_directory_uri().'/framework/vendors/bootstrap-slider/js/bootstrap-slider.min.js',array('jquery'),'', true);
 			wp_enqueue_style('bt_slider_css',get_template_directory_uri().'/framework/vendors/bootstrap-slider/css/bootstrap-slider.min.css');
 		}
+		if(LAZYLOAD){
+			wp_enqueue_script('lazyload',get_template_directory_uri().'/framework/vendors/jquery-lazyload/jquery.lazyload.js',array('jquery'),'', true);
+		}		
 
 		//intègre le fichier JS du thème de base
 		wp_enqueue_script('ldwbase',get_template_directory_uri().'/framework/front/js/front.js',array('jquery'),'', true);
