@@ -1,0 +1,31 @@
+/* Custom */
+$container-width:         1170px !default;
+$main-color:              #1eb7c1 !default;
+$second-color:            $main-color !default;
+$white:                   #fff;
+
+/* https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss */
+
+$font-family-sans-serif:  Arial, sans-serif !default;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:          1em !default;
+
+$font-size-h1:            4.125em !default; /* 66px */
+$font-size-h2:            2.5em !default; /* 40px */
+$font-size-h3:            1.625em !default; /* 26px */
+$font-size-h4:            1.25em !default; /* 20px */
+$font-size-h5:            1.125em !default; /* 18px */
+$font-size-h6:            1.125em !default; /* 18px */
+
+$line-height-base:        1.5 !default; /* 24px */
+
+$headings-font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$headings-line-height:    1.3em !default;
+$headings-color:          $main-color !default;
+
+$icon-font-path:          "../ldw-base/framework/vendors/bootstrap/fonts/";
+
+/* Fontawesome */
+$fa-font-path:            "../ldw-base/framework/vendors/font-awesome/fonts";

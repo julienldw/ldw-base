@@ -1,0 +1,15 @@
+h1, .h1, h2, .h2 {
+  margin-top: 1em;
+  margin-bottom:1em;
+}
+h3, .h3, h4, .h4 {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+h5, .h5, h6, .h6 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+blockquote, ul, ol, p, pre, table{
+  margin-bottom: #{$line-height-base}em;
+}

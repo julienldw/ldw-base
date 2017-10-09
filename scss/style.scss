@@ -1,50 +1,33 @@
-#header-widgets{
-  float:right;
-}
-
-@mixin transition($source,$duree){
-    transition:$source $duree;
-    -moz-transition:$source $duree;
-    -webkit-transition:$source $duree;
-}
-
-@mixin gradient($from, $to) {
-    background-color: $to;
-    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, $from),color-stop(1, $to));
-    background-image: -o-linear-gradient(top, $from 0%, $to 100%);
-    background-image: -moz-linear-gradient(top, $from 0%, $to 100%);
-    background-image: -webkit-linear-gradient(top, $from 0%, $to 100%);
-    background-image: -ms-linear-gradient(top, $from 0%, $to 100%);
-    background-image: linear-gradient(to top, $from 0%, $to 100%);
-}
-
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
-}
-
-@mixin parentVerticalAlign(){
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-
-@mixin verticalAlign($position: relative) {
-  position: $position;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-$icon-font-path: "../ldw-base/framework/vendors/bootstrap/fonts/";
-$fa-font-path:  "../ldw-base/framework/vendors/font-awesome/fonts";
+@import "variables";
 
 @import "../framework/vendors/bootstrap/scss/_bootstrap";
 @import "../framework/vendors/font-awesome/scss/font-awesome";
 
+@import "wordpress";
+@import "mixins";
+@import "typo";
+
+html, .root {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+}
+body, .article {
+  margin: auto;
+}
+body{
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.container-width{
+  max-width: $container-width;
+}
+img{
+  max-width:100%;
+  height:auto;
+}
+body.mce-content-body{
+  padding: 15px !important;
+}
 #header{
   &.header-fixed{
     position:fixed;
@@ -53,16 +36,5 @@ $fa-font-path:  "../ldw-base/framework/vendors/font-awesome/fonts";
     z-index:9999;
   }
 }
-
-body.blog{
-  #content{
-    .blog_main{
-      img{
-        max-width:100%; height:auto;
-      }
-    }
-    .blog_sidebar{
-
-    }
-  }
-}
+@include checkbox();
+@include radio();

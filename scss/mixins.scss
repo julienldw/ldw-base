@@ -1,0 +1,112 @@
+/* https://github.com/twbs/bootstrap-sass/tree/master/assets/stylesheets/bootstrap/mixins */
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+@mixin vertical-align($position: relative) {
+  -webkit-transform-style: preserve-3d;
+     -moz-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  > *{
+    position: $position;
+    top: 50%;
+    @include translate(0, -50%);
+  }
+}
+@mixin checkbox(){
+    input[type="checkbox"]{
+        vertical-align: baseline;
+        margin-right: 12px;
+    }
+    input[type="checkbox"]:not(:checked) + label:before,
+    input[type="checkbox"]:checked + label:before,
+    input[type="checkbox"]:not(:checked) + label:after,
+    input[type="checkbox"]:checked + label:after{
+        width: 18px;
+        height: 18px;
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 0;
+        @include border-radius($input-border-radius);
+    }
+    input[type="checkbox"]:not(:checked) + label:before,
+    input[type="checkbox"]:checked + label:before {
+        border: 2px solid $main-color;
+        background-color: $white;
+    }
+    input[type="checkbox"]:not(:checked) + label:after,
+    input[type="checkbox"]:checked + label:after {
+        line-height: 17px;
+        font-weight: normal;
+        text-align: center;
+        content: $fa-var-check;
+        font-family: 'FontAwesome';
+        font-size: 14px;
+        color: white;
+        @include transition(all .2s);
+        background-color: $main-color;
+        border-color: $main-color;
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+          line-height: 18px;
+        }
+    }
+    input[type="checkbox"]:not(:checked) + label:after {
+      opacity: 0;
+      @include scale(0);
+    }
+    input[type="checkbox"]:checked + label:after {
+      opacity: 1;
+      @include scale(1);
+    }
+}
+@mixin radio(){
+    input[type="radio"]{
+        vertical-align: baseline;
+        margin-right: 12px;
+    }
+    input[type="radio"]:not(:checked) + label:before,
+    input[type="radio"]:checked + label:before,
+    input[type="radio"]:not(:checked) + label:after,
+    input[type="radio"]:checked + label:after{
+        width: 18px;
+        height: 18px;
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 0;
+        @include border-radius($input-border-radius);
+    }
+    input[type="radio"]:not(:checked) + label:before,
+    input[type="radio"]:checked + label:before {
+        border: 2px solid lighten($main-color, 0.2);
+        background-color: $white;
+        border-radius: 100%;
+    }
+    input[type="radio"]:not(:checked) + label:after,
+    input[type="radio"]:checked + label:after {
+        line-height: 14px;
+        content: "●";
+        font-size: 14px;
+        color: $white;
+        @include transition(all .2s);
+        background-color: $main-color;
+        border-color: $main-color;
+        @include border-radius(100%);
+        text-align: center;
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+          line-height: 15px;
+        }
+    }
+    input[type="radio"]:not(:checked) + label:after {
+      opacity: 0;
+      @include scale(0);
+    }
+    input[type="radio"]:checked + label:after {
+      opacity: 1;
+      @include scale(1);
+    }
+}

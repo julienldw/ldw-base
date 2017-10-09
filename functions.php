@@ -1,7 +1,7 @@
 <?php
 
 define('DEFAULT_GOOGLEAPI_KEY', 'AIzaSyCfA_y54n7UkBQQb8lhy1cneHhRmI8HBME');
-define('DEFAULT_SIGNATURE','<p>&copy; 2016 - conçu avec <i class="fa fa-heart"></i> par <a href="http://lamourduweb.com">Lamour du Web</a></p>');
+define('DEFAULT_SIGNATURE','<p>&copy; ' . date('Y') . ' - conçu par <a href="https://lamourduweb.com" target="_blank">Lamour du Web</a></p>');
 define('DEFAULT_POSTS_ITEM_ORDER', 'img,title,meta,excerpt,more');
 define('DEFAULT_POST_META', 'Publié le %date% par %author% dans %categories%');
 
@@ -13,6 +13,7 @@ class LDWBase{
 		add_action( 'after_setup_theme', array($this,'setup') );
 		add_action( 'widgets_init', array($this,'widgets_init') );
 		add_action('wp_enqueue_scripts',array($this,'wp_enqueue_scripts') );
+		add_action('init',array($this,'add_editor_styles') );
 	}
 
 	public function init(){
@@ -46,7 +47,10 @@ class LDWBase{
 		}
 		if(LAZYLOAD){
 			wp_enqueue_script('lazyload',get_template_directory_uri().'/framework/vendors/jquery-lazyload/jquery.lazyload.js',array('jquery'),'', true);
-		}		
+		}
+		if(ANIMATECSS){
+			wp_enqueue_style('animate_css',get_template_directory_uri().'/framework/vendors/animate-css/animate.css');
+		}
 
 		//intègre le fichier JS du thème de base
 		wp_enqueue_script('ldwbase',get_template_directory_uri().'/framework/front/js/front.js',array('jquery'),'', true);
@@ -172,5 +176,8 @@ class LDWBase{
 	        //register_widget('Widget_Map');
 		}
 
+	public function add_editor_styles() {
+		add_editor_style( 'style.css' );
+	}
 }
 new LDWBase();

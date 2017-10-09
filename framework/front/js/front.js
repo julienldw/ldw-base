@@ -35,7 +35,7 @@ jQuery(function($) {
 	}
 
   if($('#header.header-fixed').length>0){
-		$('#main').css('margin-top',$('#header').outerHeight(true));
+		$('main').css('margin-top',$('#header').outerHeight(true));
 
     function setHeaderScroll(){
         if($(window).scrollTop()>0){
@@ -70,5 +70,5 @@ jQuery(function($) {
         $('html, body').animate({
 			scrollTop:scrolltop
 		}, 'slow');
-	}  
+	}
 });
