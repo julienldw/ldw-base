@@ -14,6 +14,7 @@ class LDWBase{
 		add_action( 'widgets_init', array($this,'widgets_init') );
 		add_action('wp_enqueue_scripts',array($this,'wp_enqueue_scripts') );
 		add_action('init',array($this,'add_editor_styles') );
+		add_action('the_content',array($this,'the_content_video_responsive') );
 	}
 
 	public function init(){
@@ -179,5 +180,45 @@ class LDWBase{
 	public function add_editor_styles() {
 		add_editor_style( 'style.css' );
 	}
+
+	public function the_content_video_responsive($content){
+    $pattern = '~<iframe.*</iframe>|<embed.*</embed>~';
+    preg_match_all($pattern, $content, $matches);
+    $classes = [];
+    $calc = 50;
+    foreach ($matches[0] as $match) {
+      if (strpos($match, 'width=') && strpos($match, 'height=')){
+        preg_match('/width="([^"]+)"/', $match, $mt);
+        $width = $mt[1];
+        preg_match('/height="([^"]+)"/', $match, $mt);
+        $height = $mt[1];
+        $calc = ($height / $width) * 100;
+      }
+      if (false !== strpos($match, 'vimeo.com') || false !== strpos($match, 'youtube.com')) {
+        $classes = ['video-container'];
+        if (false !== strpos($match, 'vimeo.com')) {
+          $classes[] = 'vimeo';
+        }
+        if (false !== strpos($match, 'youtube.com')) {
+          $classes[] = 'youtube';
+        }
+      }
+      $wrappedframe = '<div class="' . esc_attr(implode( $classes, ' ')) . '" style="padding-bottom: ' . $calc . '%;">' . $match . '</div>';
+      $content = str_replace($match, $wrappedframe, $content);
+    }
+    return $content;
+	}
+}
+/**
+ * Gravity Forms - Ajout de la classe 'btn' sur le bouton submit
+ */
+if (is_plugin_active('gravityforms/gravityforms.php')) {
+  add_filter('gform_next_button', 'custom_gform_submit_button', 10, 2);
+  add_filter('gform_previous_button', 'custom_gform_submit_button', 10, 2);
+  add_filter('gform_submit_button', 'custom_gform_submit_button', 10, 2);
+  function custom_gform_submit_button( $button, $form ) {
+      $button = preg_replace('#gform_button button#', 'gform_button button btn', $button);
+      return $button;
+  }
 }
 new LDWBase();

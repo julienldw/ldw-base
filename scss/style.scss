@@ -6,6 +6,8 @@
 @import "wordpress";
 @import "mixins";
 @import "typo";
+@import "video";
+@import "editor";
 
 html, .root {
   font-size: $font-size-base;
@@ -24,9 +26,6 @@ body{
 img{
   max-width:100%;
   height:auto;
-}
-body.mce-content-body{
-  padding: 15px !important;
 }
 #header{
   &.header-fixed{
