@@ -26,30 +26,30 @@ class LDWBase{
 
 		wp_enqueue_script('bootstrap',get_template_directory_uri().'/framework/vendors/bootstrap/js/bootstrap.min.js',array('jquery'),'', true);
 
-		if(COLORBOX){
+		if(defined('COLORBOX') && COLORBOX){
 			wp_enqueue_script('colorbox',get_template_directory_uri().'/framework/vendors/colorbox/js/jquery.colorbox-min.js',array('jquery'),'', true);
 			wp_enqueue_script('colorbox_i18n',get_template_directory_uri().'/framework/vendors/colorbox/i18n/jquery.colorbox-'.substr(get_locale(), 0, 2).'.js',array('colorbox'),'', true);
 			wp_enqueue_style('colorbox_css',get_template_directory_uri().'/framework/vendors/colorbox/example1/colorbox.css');
 		}
-		if(AUTOSIZE){
+		if(defined('AUTOSIZE') && AUTOSIZE){
 			wp_enqueue_script('autosize',get_template_directory_uri().'/framework/vendors/autosize/js/autosize.min.js',array('jquery'),'', true);
 		}
-		if(GMAP3){
+		if(defined('GMAP3') && GMAP3){
 			wp_enqueue_script('gmap', '//maps.google.com/maps/api/js?libraries=places&key='.get_theme_mod('gmap_api'));
 			wp_enqueue_script('gmap3',get_template_directory_uri().'/framework/vendors/gmap3/js/gmap3.min.js',array('jquery','gmap'),'', true);
 		}
-		if(SELECT2){
+		if(defined('SELECT2') && SELECT2){
 			wp_enqueue_script('select2',get_template_directory_uri().'/framework/vendors/select2/select2.full.min.js',array('jquery'),'', true);
 			wp_enqueue_style('select2_css',get_template_directory_uri().'/framework/vendors/select2/select2.min.css');
 		}
-		if(BT_SLIDER){
+		if(defined('BT_SLIDER') && BT_SLIDER){
 			wp_enqueue_script('bt_slider',get_template_directory_uri().'/framework/vendors/bootstrap-slider/js/bootstrap-slider.min.js',array('jquery'),'', true);
 			wp_enqueue_style('bt_slider_css',get_template_directory_uri().'/framework/vendors/bootstrap-slider/css/bootstrap-slider.min.css');
 		}
-		if(LAZYLOAD){
+		if(defined('LAZYLOAD') && LAZYLOAD){
 			wp_enqueue_script('lazyload',get_template_directory_uri().'/framework/vendors/jquery-lazyload/jquery.lazyload.js',array('jquery'),'', true);
 		}
-		if(ANIMATECSS){
+		if(defined('ANIMATECSS') && ANIMATECSS){
 			wp_enqueue_style('animate_css',get_template_directory_uri().'/framework/vendors/animate-css/animate.css');
 		}
 
@@ -212,6 +212,7 @@ class LDWBase{
 /**
  * Gravity Forms - Ajout de la classe 'btn' sur le bouton submit
  */
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if (is_plugin_active('gravityforms/gravityforms.php')) {
   add_filter('gform_next_button', 'custom_gform_submit_button', 10, 2);
   add_filter('gform_previous_button', 'custom_gform_submit_button', 10, 2);
@@ -221,4 +222,45 @@ if (is_plugin_active('gravityforms/gravityforms.php')) {
       return $button;
   }
 }
+function custom_login_logo() {
+	?><style type="text/css">
+		.login h1 a{
+			background-image:url(<?php echo get_site_icon_url(192); ?>)!important;
+		}
+  </style><?php
+}
+add_action('login_enqueue_scripts', 'custom_login_logo');
+function custom_wp_before_admin_bar_render(){
+	?><style>
+		#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon::before {
+				content:'';
+		}
+		#wpadminbar > #wp-toolbar > #wp-admin-bar-root-default #wp-admin-bar-wp-logo > .ab-item{
+			background-image:url(<?php echo get_site_icon_url(32); ?>)!important;
+			background-size: 20px 20px;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+	</style><?php
+}
+add_action('wp_before_admin_bar_render', 'custom_wp_before_admin_bar_render');
+
+/* WP-SCSS | WP Rocket - Réglages */
+$datetime_css =  filemtime (get_stylesheet_directory() . '/style.css');
+$fileList_base = glob(get_template_directory() . '/scss/*');
+$fileList_child = glob(get_stylesheet_directory() . '/scss/*');
+$fileList = array_merge($fileList_base, $fileList_child);
+$max_datetime = null;
+foreach($fileList as $filename){
+   $dt = filemtime($filename);
+   if (!$max_datetime || $dt > $max_datetime) {
+     $max_datetime = $dt;
+   }
+}
+if ($max_datetime && $max_datetime > $datetime_css) {
+  define('WP_SCSS_ALWAYS_RECOMPILE', true);
+  add_filter('do_rocket_generate_caching_files', '__return_false');
+}
+/* END */
+
 new LDWBase();

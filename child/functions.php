@@ -15,6 +15,7 @@ define('GMAP3', false); // http://gmap3.net/
 define('COLORBOX', false); // http://www.jacklmoore.com/colorbox/
 define('BT_SLIDER', false); // http://seiyria.com/bootstrap-slider/
 define('LAZYLOAD',true); // http://www.appelsiini.net/projects/lazyload
+define('ANIMATECSS',false);
 define('AJAX',true);
 
 
