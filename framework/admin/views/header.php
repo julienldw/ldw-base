@@ -19,6 +19,15 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <th scope="row"><label for="position">Position</label></th>
+        <td>
+          <select name="position">
+            <option value="static"<?php if($position == "static") : ?> selected="selected"<?php endif; ?>>Non fixé</option>
+            <option value="fixed"<?php if($position == "fixed") : ?> selected="selected"<?php endif; ?>>Fixé</option>
+          </select>
+        </td>
+      </tr>
     </tbody>
   </table>
   <p class="submit">

@@ -32,6 +32,7 @@ class LDWBaseAdmin{
 		if(isset($_POST['ldwbase-header'])){
       if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
 				set_theme_mod('logo',$_POST['logo_id']);
+				set_theme_mod('header_position',$_POST['position']);
 				$saved = true;
 			}
 		}
@@ -41,6 +42,23 @@ class LDWBaseAdmin{
 			if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
 				set_theme_mod('posts_item_order',$_POST['posts_item_order']);
 				set_theme_mod('post_meta',$_POST['post_meta']);
+				$saved = true;
+			}
+		}
+
+		// page réseaux sociaux
+		if(isset($_POST['ldwbase-social-networks'])){
+      if(wp_verify_nonce($_POST['ldwbase_nonce'], 'ldwbase-nonce')) {
+				set_theme_mod(
+					'social_networks',
+					[
+						'facebook'   => stripslashes($_POST['facebook']),
+						'twitter'    => stripslashes($_POST['twitter']),
+						'googleplus' => stripslashes($_POST['googleplus']),
+						'linkedin'   => stripslashes($_POST['linkedin']),
+						'youtube'    => stripslashes($_POST['youtube'])
+					]
+				);
 				$saved = true;
 			}
 		}
@@ -104,6 +122,14 @@ class LDWBaseAdmin{
 		);
 		add_submenu_page(
 			'ldw-base',
+			'Réseaux sociaux',
+			'Réseaux sociaux',
+			'manage_options',
+			'ldw-base-social-networks',
+			array($this,'social_networks_page')
+		);
+		add_submenu_page(
+			'ldw-base',
 			'Footer',
 			'Footer',
 			'manage_options',
@@ -137,6 +163,35 @@ class LDWBaseAdmin{
     include('views/index.php');
   }
 
+	function social_networks_page(){
+
+		$facebook   = "";
+		$twitter    = "";
+		$googleplus = "";
+		$linkedin   = "";
+		$youtube    = "";
+
+		$social_networks = get_theme_mod('social_networks');
+		if (isset($social_networks['facebook'])) {
+			$facebook = $social_networks['facebook'];
+		}
+		if (isset($social_networks['twitter'])) {
+			$twitter = $social_networks['twitter'];
+		}
+		if (isset($social_networks['googleplus'])) {
+			$googleplus = $social_networks['googleplus'];
+		}
+		if (isset($social_networks['linkedin'])) {
+			$linkedin = $social_networks['linkedin'];
+		}
+		if (isset($social_networks['youtube'])) {
+			$youtube = $social_networks['youtube'];
+		}
+
+    $page = 'social_networks';
+    include('views/index.php');
+  }
+
 	function footer_page(){
 
 		$signature = get_theme_mod('signature', DEFAULT_SIGNATURE);
@@ -152,6 +207,8 @@ class LDWBaseAdmin{
 			$src = wp_get_attachment_image_src($logo_id, 'full');
 			$logo_url = $src[0];
 		}
+
+		$position = get_theme_mod('header_position', DEFAULT_POSITION);
 
     $page = 'header';
     include('views/index.php');

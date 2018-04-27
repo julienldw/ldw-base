@@ -114,9 +114,9 @@ function ldw_widget_class($id){
 }
 
 //affiche les réseaux sociaux
-function ldw_social($label = ''){
+function ldw_social(/*$label = ''*/){
   $socials = get_theme_mod('social_networks');
-  $html = '';
+  /*$html = '';
   if(is_array($socials)){
       if(count($socials)>0){
         if(strlen($label)>0){
@@ -129,7 +129,9 @@ function ldw_social($label = ''){
         $html .= '</ul>';
       }
   }
-  echo apply_filters('ldw_social',$html);
+  echo apply_filters('ldw_social',$html);*/
+  // echo apply_filters('ldw_social',$socials);
+  return $socials;
 }
 
 // récupérer les N premiers mots d'un texte

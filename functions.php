@@ -4,6 +4,7 @@ define('DEFAULT_GOOGLEAPI_KEY', 'AIzaSyCfA_y54n7UkBQQb8lhy1cneHhRmI8HBME');
 define('DEFAULT_SIGNATURE','<p>&copy; ' . date('Y') . ' - conçu par <a href="https://lamourduweb.com" target="_blank">Lamour du Web</a></p>');
 define('DEFAULT_POSTS_ITEM_ORDER', 'img,title,meta,excerpt,more');
 define('DEFAULT_POST_META', 'Publié le %date% par %author% dans %categories%');
+define('DEFAULT_POSITION', 'Static');
 
 class LDWBase{
 
@@ -57,8 +58,8 @@ class LDWBase{
 		wp_enqueue_script('ldwbase',get_template_directory_uri().'/framework/front/js/front.js',array('jquery'),'', true);
 
 		// intègre le fichier JS du thème enfant s'il existe
-		if(file_exists(get_stylesheet_directory().'/site.js')){
-			wp_enqueue_script('site',get_stylesheet_directory_uri().'/site.js',array('ldwbase'),'', true);
+		if(file_exists(get_stylesheet_directory().'/assets/js/site.js')){
+			wp_enqueue_script('site',get_stylesheet_directory_uri().'/assets/js/site.js',array('ldwbase'),'', true);
 			if(AJAX){
 				wp_localize_script('site', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 			}
@@ -89,8 +90,6 @@ class LDWBase{
 
 
 	public function setup(){
-			set_theme_mod('header_position','static');
-			set_theme_mod('social_networks', array());
 			set_theme_mod('post_more', 'Lire la suite');
 
 
@@ -141,6 +140,26 @@ class LDWBase{
 			add_editor_style( array( 'editor.css' ) );
 
 			add_theme_support( 'customize-selective-refresh-widgets' );
+
+			add_theme_support( 'starter-content', array(
+		      'options' =>  [
+		        'show_on_front' =>  'page',
+		        'page_on_front' =>  '{{home}}'
+		      ],
+		      'posts' => [
+		          'home'  =>  ['post_title'  =>  'Accueil', 'post_name'  =>  'accueil'],
+		          'legals'  =>  ['post_title'  =>  'Mentions légales', 'post_name'  =>  'mentions-legales'],
+		      ],
+		      'nav_menus' =>  [
+		        'main'  =>  [
+		          'name' => 'Header'
+		        ],
+		        'secondary'  =>  [
+		          'name' => 'Footer'
+		        ],
+		      ]
+		    )
+		  );
 	}
 
 
@@ -172,7 +191,6 @@ class LDWBase{
 				'before_title' => '<p class="widget-title">',
 				'after_title' => '</p>',
 			) );
-
 	        //register_widget('Widget_Contact');
 	        //register_widget('Widget_Map');
 		}
@@ -262,5 +280,15 @@ if ($max_datetime && $max_datetime > $datetime_css) {
   add_filter('do_rocket_generate_caching_files', '__return_false');
 }
 /* END */
+
+if( function_exists('acf_add_options_page') ) {
+	acf_add_options_page([
+		'page_title'  =>  'Options du site'
+  ]);
+}
+function acf_google_api_key() {
+	acf_update_setting('google_api_key', get_theme_mod('gmap_api'));
+}
+add_action('acf/init', 'acf_google_api_key');
 
 new LDWBase();
